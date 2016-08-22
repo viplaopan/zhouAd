@@ -23,7 +23,7 @@ class AdController extends AdminController
 $addip = get_client_ip();
 $Ip = new IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
 $area = $Ip->getlocation($addip); // 
-dump($area);
+dump($addip);
     	$adModel = D('Ad');  
 		$map['status'] = 1;
         $lists = $adModel->where($map)->page($page, $r)->order('id desc')->select();
