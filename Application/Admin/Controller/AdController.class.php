@@ -22,7 +22,8 @@ class AdController extends AdminController
     {
 
 $Ip = new IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
-$area = $Ip->getlocation('203.34.5.66'); // 获取某个IP地址所在的位置
+$area = $Ip->getlocation('203.34.5.66'); // 
+dump($area);
     	$adModel = D('Ad');  
 		$map['status'] = 1;
         $lists = $adModel->where($map)->page($page, $r)->order('id desc')->select();
