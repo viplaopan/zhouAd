@@ -19,7 +19,7 @@ class AdController extends AdminController
 	//菜单列表
     public function index($page = 1, $r = 20)
     {
-    	$ip = get_client_ip();
+    	$ip = getIPaddress();
     	echo taobaoIP($ip);
     	$adModel = D('Ad');  
 		$map['status'] = 1;
