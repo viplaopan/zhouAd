@@ -17,6 +17,7 @@
  * @subpackage  Net
  * @author    liu21st <liu21st@gmail.com>
  */
+namespace Com;
 class IpLocation {
     /**
      * QQWry.Dat文件指针
