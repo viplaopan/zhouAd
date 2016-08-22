@@ -19,6 +19,8 @@ class AdController extends AdminController
 	//菜单列表
     public function index($page = 1, $r = 20)
     {
+    	$ip = get_client_ip();
+    	echo taobaoIP($ip);
     	$adModel = D('Ad');  
 		$map['status'] = 1;
         $lists = $adModel->where($map)->page($page, $r)->order('id desc')->select();
@@ -72,7 +74,7 @@ class AdController extends AdminController
 	        $builder->title($isEdit ? '编辑广告' : '添加广告')
 	            ->keyId()
 	            ->keyText('name', '广告名称')
-				->keyTextArea('noallow', '价格')
+				->keyTextArea('noallow', '静止城市','逗号隔开')
 				->keyText('url', '广告链接')
 				->keyImage('cover', '广告图片')
 	            ->keyStatus()
