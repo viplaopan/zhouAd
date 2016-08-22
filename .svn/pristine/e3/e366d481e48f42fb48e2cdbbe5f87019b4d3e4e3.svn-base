@@ -1,0 +1,34 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<?php 
+	$jssdk = new \Com\JSSDK("wx599baa1f584a46b1", "37bd56ee6466e53cf2ccdece4ba3a107");
+	$signPackage = $jssdk->getSignPackage();
+	dump($signPackage);
+?>
+
+<script>
+wx.config({
+    debug: true,
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage'
+    ]
+});
+
+wx.ready(function () {
+	wx.onMenuShareTimeline({
+		title: '诚心愿以此功德普及一切，我等与众生，皆共成佛道！', 
+		link: 'http://www.tianyouqifu.com',
+		imgUrl: 'http://www.tianyouqifu.com/__PIC__/share.png',
+		success: function () { 
+			window.location.href="http://www.tianyouqifu.com/";
+		},
+		cancel: function () { 
+			window.location.href="http://www.tianyouqifu.com/";
+		}
+	});
+});
+</script>

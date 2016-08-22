@@ -1,0 +1,51 @@
+<?php
+
+namespace Weixin\Controller;
+use Com\Wechat;
+use Com\WechatAuth;
+/**
+ * 前台首页控制器
+ * 主要获取首页聚合数据
+ */
+class IndexController extends HomeController {
+	/**
+     * 首页
+     * 
+     * 
+     */
+    public function index(){
+    	//获取用户信息
+        $userinfo = D('WeixinMember')->get_weixin_userinfo('http://wudi.1bea.com/weixin/Index/index.html');
+	
+		$this->display();
+    }
+	
+	public function member(){
+		//获取用户信息
+		$userinfo = D('WeixinMember')->get_weixin_userinfo('http://wudi.1bea.com/weixin/Index/member.html');
+		$this->assign('userinfo',$userinfo);
+		$this->display();
+	}
+
+	public function views($id = 0){
+		//获取用户信息
+//		$userinfo = D('WeixinMember')->get_weixin_userinfo('http://wudi.1bea.com/weixin/Index/views.html');
+//		$this->assign('userinfo',$userinfo);
+		
+		$goodsModel = D('Goods');
+		$info = $goodsModel->find($id);
+		$this->assign('info',$info);
+		
+		//获取图片集
+		$gallerys = D('GoodsGallery')->where(array('goods_id = ' .$id))->getField('img_url',true);
+		foreach($gallerys as &$val){
+			$val = '/Uploads/Goods/Gallery/'.$val;
+		}
+		unset($val);
+		$this->assign('gallerys',$gallerys);
+		$imgList = array('imgList'=>$gallerys,'valueId'=>'636');
+		
+		$this->assign('propValueImgList',json_encode($imgList));
+		$this->display();
+	}
+}

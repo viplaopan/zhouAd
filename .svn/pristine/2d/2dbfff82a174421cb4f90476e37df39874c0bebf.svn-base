@@ -1,0 +1,85 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: caipeichao
+ * Date: 14-3-14
+ * Time: AM10:59
+ */
+
+namespace Admin\Controller;
+
+use Admin\Builder\AdminListBuilder;
+use Admin\Builder\AdminConfigBuilder;
+use Admin\Builder\AdminSortBuilder;
+use Com\Wechat;
+use Com\WechatAuth;
+
+class ShopController extends AdminController
+{
+	//菜单列表
+    public function index($page = 1, $r = 20)
+    {
+    	$goodsModel = D('Goods');   
+        $lists = $goodsModel->where($map)->page($page, $r)->order('id desc')->select();	
+    	//显示页面
+        $builder = new AdminListBuilder();
+        $builder->title('商品列表')
+            ->buttonNew(U('edit'))
+            ->buttonDelete()
+            ->keyId()
+			->keyText('goods_name', '商品名称')
+            ->keyText('type', '商品类型')            
+			->keyCreateTime()
+            ->keyStatus()
+            ->data($lists)
+            ->pagination($totalCount, $r)
+            ->display();
+    }
+	public function edit($id = 0){
+		$isEdit = $id?1:0;
+		$goodsModel = D('Goods');   
+		if(IS_POST){
+			if($isEdit){
+				$data = $goodsModel->create();
+				$res = $goodsModel->where('id = '. $id)->save($data);
+			}else{
+				$data = $goodsModel->create();
+	
+				$res = $goodsModel->add($data);
+				$id = $res;
+			}
+			if($res){
+				//编辑时删除原来图片
+				if($isEdit){
+					D('GoodsGallery')->where('goods_id = '. $id)->delete();
+				}
+				$gallery = I("post.gallery");
+				$gallery_data = array();
+				foreach($gallery as $val){
+					$gallery_data['img_url'] = $val;
+					$gallery_data['goods_id'] = $id;
+				}
+				D('GoodsGallery')->add($gallery_data); 
+				$this->success('提交成功');
+			}else{
+				$this->error('遇到错误');
+			}
+		}else{
+			//显示页面
+	        $builder = new AdminConfigBuilder();
+	        $builder->title($isEdit ? '编辑页面' : '添加页面')
+	            ->keyId()
+	            ->keyText('goods_name', '商品名称')
+				->keyText('shop_price', '价格')
+				
+				->keySelect('type', '按钮类型', '',C('GOODS_TYPE'))
+				->keyImage('cover', '封面')
+				->keyImageGallery('images', '商品图片')
+	            ->keyStatus()
+	            ->data($data)
+	            ->buttonSubmit(U('edit'))->buttonBack()
+	            ->display();
+		}
+		
+	}
+}

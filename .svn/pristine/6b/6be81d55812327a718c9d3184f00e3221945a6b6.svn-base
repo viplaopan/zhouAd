@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script charset="utf-8" src="__JS__/jquery.min.js?v=10001"></script>
+<script charset="utf-8" src="__JS__/global.js?v=10001"></script>
+<script charset="utf-8" src="__JS__/bootstrap.min.js?v=10001"></script>
+<script charset="utf-8" src="__JS__/template.js?v=10001"></script>
+
+<link rel="stylesheet" href="__CSS__/bootstrap.css?v=10001">
+<link rel="stylesheet" href="__CSS__/style.css?v=1?v=10001">
+<link rel="stylesheet" href="__CSS__/member.css?v=10001">
+<link rel="stylesheet" href="__CSS__/order3.css?v=10001"><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<meta content="telephone=no" name="format-detection">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1;user-scalable=no;">
+<title>{$info.goods_name}</title>
+<link rel="stylesheet" href="__CSS__/productDetail.css?v=10001">
+<script charset="utf-8" src="__JS__/TouchSlide.js?v=10001"></script>
+<script charset="utf-8" src="__JS__/prodDetail.js?v=10001"></script>
+<style type="text/css">
+.details_con li .tb-out-of-stock{
+border: 1px dashed #bbb;
+color:#bbb;
+cursor: not-allowed;
+}
+.no-selected{
+background: #ffe8e8 none repeat scroll 0 0;
+border: 2px solid #be0106;
+margin: -1px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="fanhui_cou">
+	<div class="fanhui_1"></div>
+	<div class="fanhui_ding">顶部</div>
+</div>
+
+<header class="header">
+	<div class="fix_nav">
+		<div style="max-width:768px;margin:0 auto;background:#000;position: relative;">
+			<a class="nav-left back-icon" href="javascript:history.back();">返回</a>
+			<div class="tit">商品详细</div>
+		</div>
+	</div>
+</header>
+<input type="hidden" id="prodId" value="663"/>
+<input id="currSkuId" value="" type="hidden"/>
+<div class="container">
+    <div class="row white-bg">
+        <div id="slide"> 
+            <div class="hd">
+                <ul>
+                	<li>1</li></ul>
+            </div>
+            <div class="bd">
+                <div class="tempWrap" style="overflow:hidden; position:relative;">
+                	<ul style="width: 3072px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; transform: translateX(-768px);">
+                        <volist name="gallerys" id="vo">
+	                        <li style="display: table-cell; vertical-align: middle; max-width: 768px;">
+	                        		<a href="#"><img style="max-width:100vw;max-height:80vw;margin:auto;" src="{$vo}"></a>
+	                        </li>
+                        </volist>
+                    </ul>
+               </div>
+            </div>
+        </div>
+    </div>
+    <div class="goods-progress row">
+		<div class="p-progress-wrap">
+	        <span class="" style="width:0%"></span>
+	    </div>
+	    <div class="p-progress-txt">
+        <ul>
+            <li class="fore1">
+                <div>总需人次</div>
+                <em>{$auction.total}</em>
+            </li>
+            <li class="fore2">
+                <div>已参与</div>
+                <em>0</em>
+            </li>
+            <li class="fore3">
+                <div>
+                    剩余人次
+                </div>
+                <em>{$auction.total}</em>
+            </li>
+        </ul>
+    </div>
+	</div>
+    <div class="row gary-bg">
+         <div class="white-bg p10 details_con">
+         <h1 class="item-name" id="prodName">{$info.goods_name}</h1>
+         <ul>
+			<li>
+				<label>商城价格：</label>
+				<span class="price">¥<span class="price" id="prodCash">{$info.shop_price}</span></span>
+			</li>
+			<!--<li id="choose_0" index="0" >
+					<label id="propName" propname="颜色">颜色：</label>
+					<dl>
+						<dd key="208:635" valId="635" >黑色<span></span></dd>
+								<dd class="check" key="208:636" valId="636" >红色<span></span></dd>
+								<dd key="208:661" valId="661" >黄色<span></span></dd>
+								</dl>
+				</li>-->
+			  <li>
+				<label>数量：</label>
+				<div class="count_div" style="height: 30px; width: 130px;">
+					<a href="javascript:void(0);" class="minus" ></a>
+					  <input type="text" class="count" value="1" id="prodCount" readonly="readonly"/>
+					<a href="javascript:void(0);" class="add" ></a>
+				</div>
+			</li>
+			</ul>
+		</div>
+		
+        <div id="goodsContent" class="goods-content white-bg">
+			
+            <div class="hd hd_fav">
+                <ul>
+                    <li class="on">图文详情</li>
+                    <li class="">规格参数</li>
+                    <li class="">我参与的</li>
+                </ul>
+            </div>
+			
+            <div class="tempWrap" style="overflow:hidden; position:relative;">
+            <div style="width: 2304px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; transform: translateX(0px);" class="bd">
+                <ul style="display: table-cell; vertical-align: top; max-width: 768px;width: 100%;" class="property">
+                    <div class="prop-area" style="min-height:300px;overflow: hidden;">
+                    	{$info.content}</div>
+                </ul>
+                <ul class="txt-imgs" style="display: table-cell; vertical-align: top; max-width: 768px;width: 100%;">
+                	<div class="desc-area" style="padding: 0px 10px 0 10px;">
+	                <li style="height:30px;">
+	                	<div id="ajax_loading" style="margin: 10px  auto 15px;text-align:center;"> <img src="__IMAGES__/loading.gif" style="width: auto; display: block;  margin: auto;"></div>
+	                </li>
+	                </div>
+                </ul>
+                <ul style="display: table-cell; vertical-align: top; max-width: 768px;width: 100%;" class="appraise" rel="1" status="1">
+                	<div style="height:30px;">
+	                	<div id="ajax_loading" style="margin: 10px  auto 15px;text-align:center;"> <img src="__IMAGES__/loading.gif" style="width: auto; display: block;  margin: auto;"></div>
+	                </div>
+                     <div class="wap_page" style="display: none;" onclick="next_comments(this)"><span>下一页</span></div>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-foot">
+	<div class="fixed_inner">
+		<a class="rule-wrap" href="javascript:void(0)" id="addmiliBtn">
+			如何获得米粒?
+		</a>
+		<div class="buy-btn-fix">
+		    
+		    <a class="btn btn-danger btn-buy" id="startGo"href="javascript:void(0);">立即参与</a>
+		</div>
+	</div>
+</div>
+<div class="fixed-foot-offer" id="offer">
+	<div class="fixed_inner white-bg">
+		<h1 class="header">请选择参与人次</h1>
+		<div class="count_div" style="height: 30px; width: 130px;">
+			<a href="javascript:void(0);" class="minus"></a>
+			  <input type="text" class="count" value="1" id="prodCount" readonly="readonly">
+			<a href="javascript:void(0);" class="add"></a>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+<div style="display: none;" class="modal fade" id="addMili" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+      	<form class="form-horizontal" role="form" data-method="formAjax">
+	        
+			 <div style="overflow:hidden;width: 100%;">
+				<div class="addMIliContent">
+					 <h1>如何获取米粒?</h1>
+					 <p>1 : 每日签到,获得每日奖励。</p>
+					 <p>2 : 连续签到10次可获得 50 米粒。</p>
+					 <p>3 : 每天分享指定商品,可获得米粒奖励。</p>
+					 <p>4 : 在商城购买商品，可获得对应的米粒奖励。</p>
+				</div>
+			 </div>
+			 <div style="height:60px;"></div>
+         </form>
+      </div>
+	</div>
+</div>
+<footer class="footer">
+  <div class="foot-con">
+	<div class="foot-con_2">
+		<a href="index.html">
+			<i class="navIcon home"></i>
+			<span class="text">首页</span>
+		</a>
+		<a href="category.html">
+			<i class="navIcon sort"></i>
+			<span class="text">分类</span>
+		</a>
+		<a href="shopcart.html">
+			<i class="navIcon shop"></i>
+			<span class="text">购物车</span>		
+		</a>
+		<a href="userhome.html">
+			<i class="navIcon member"></i>
+			<span class="text">我的</span>
+		</a>
+	</div>
+  </div>
+</footer>
+<include file="Public/JSSDK"/>
+<script type="text/javascript">
+var contextPath = '';
+var currProdId = '663';
+var prodName= '测试下这是啥';
+var skuDtoList = eval('[{"amountDetail":{"cash":179,"num":1,"price":179,"promotionPrice":179,"totalAmount":179},"name":"{$info.goods_name}","price":179,"properties":"208:636","skuId":1358,"status":1},{"amountDetail":{"cash":179,"num":1,"price":179,"promotionPrice":179,"totalAmount":179},"name":"{$info.goods_name}","price":179,"properties":"208:661","skuId":1359,"status":1},{"amountDetail":{"cash":179,"num":1,"price":179,"promotionPrice":179,"totalAmount":179},"name":"{$info.goods_name}","price":179,"properties":"208:635","skuId":1360,"status":1}]');
+var propValueImgList = eval('[{$propValueImgList}]');
+var allSelected = true;
+var prodLessMsg = '商品缺货';
+var failedOwnerMsg = '您是商品主人, 不能购买此商品。';
+var failedBasketMaxMsg = '已达到购物车最大数量, 不能购买此商品。';
+var failedBasketErrorMsg = '购物车错误, 不能购买此商品。';
+var photoPath = "";
+var distUserName = '';
+
+//插件：图片轮播
+TouchSlide({
+	slideCell:"#slide",
+	titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+	mainCell:".bd ul",
+	effect:"left",
+	autoPlay:false,//自动播放
+	autoPage:true, //自动分页
+	switchLoad:"_src" //切换加载，真实图片路径为"_src"
+});
+
+var scrollTop = 0;
+TouchSlide({
+	slideCell:"#goodsContent",
+	startFun:function(i,c){
+		var prodId = $("#prodId").val();
+		if(i==1){
+			//规格参数
+			var th = jQuery("#goodsContent .bd ul").eq(i);
+			if(!th.hasClass('hadGoodsContent')){				
+				queryParameter(th,prodId);
+			}
+
+			if($(window).scrollTop() > scrollTop){
+				$(window).scrollTop(scrollTop);
+			}
+
+		}else if(i==2){
+			//评价
+			var th = jQuery("#goodsContent .bd ul").eq(i);
+
+			if(!th.hasClass('hadConments')){
+				queryProdComment(th,prodId);
+			}
+
+			if($(window).scrollTop() > scrollTop){
+				$(window).scrollTop(scrollTop);
+			}
+		}else{
+			if(scrollTop == 0){
+				$(window).scrollTop(scrollTop);
+				var hd_fav = $('.hd_fav');
+				var position = hd_fav.position();
+				
+				scrollTop = position.top;
+			}
+		}
+	},
+});
+$(function(){
+	$("#addmiliBtn").click(function(){
+		$("#addMili").modal().css({
+		    "margin-top": function () {
+		        return ($(window).height() / 5);
+		    }
+		});
+	})
+	$("#startGo").click(function(){
+	    $("#offer").slideDown(150);
+	});
+})
+</script>
+</body>
+</html>

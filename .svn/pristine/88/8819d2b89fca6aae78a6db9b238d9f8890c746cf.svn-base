@@ -1,0 +1,95 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: caipeichao
+ * Date: 14-3-14
+ * Time: AM10:59
+ * category 分类处理
+ */
+
+namespace Admin\Controller;
+
+use Admin\Builder\AdminListBuilder;
+use Admin\Builder\AdminConfigBuilder;
+use Admin\Builder\AdminSortBuilder;
+use Com\Wechat;
+use Com\WechatAuth;
+
+class GoodsCategoryController extends AdminController
+{
+	//分类列表
+    public function index($page = 1, $r = 20)
+    {
+    	$CategoryModel = D('GoodsCategory');  
+		$map['status'] = 1;
+        $lists = $CategoryModel->where($map)->page($page, $r)->order('id desc')->select();
+
+    	//显示页面
+        $builder = new AdminListBuilder();
+        $builder->title('商品列表')
+            ->buttonNew(U('edit'))
+			->setStatusUrl(U('setStatus'))
+            ->buttonDelete()
+            ->keyId()
+			->keyText('name', '分类名称')
+			->keyDoActionEdit('edit?id=###')
+			->keyDoActionEdit('attribute?cid=###','添加扩展属性')
+            ->data($lists)
+            ->pagination($totalCount, $r)
+            ->display();
+    }
+	public function edit($id = 0){
+		$isEdit = $id? 1: 0;
+		$CategoryModel = D('GoodsCategory');
+		if(IS_POST){
+			
+			if($data = $CategoryModel->create()){
+				if($isEdit){
+					$res = $CategoryModel -> save($data);
+				}else{
+					$id = $CategoryModel -> add($data);
+					$res = $id;
+				}
+				
+			}		
+			if($res){
+				$this->success('操作成功！');
+			}
+		}else{
+			if($isEdit){
+				$data = $CategoryModel->find($id);
+			}
+			//显示页面
+	        $builder = new AdminConfigBuilder();
+	        $builder->title($isEdit ? '编辑规则' : '添加规则')
+	            ->keyId()->keyText('name', '分类名称')
+	            ->data($data)
+	            ->buttonSubmit(U('edit'))
+	            ->buttonBack()
+	            ->display();
+		}
+	}
+	public function attribute($cid = 0){
+		$CategoryModel = D('GoodsCategory');  
+		$category = $CategoryModel->find($cid);
+		
+		$CategoryAttribute = D('CategoryAttribute');
+		$map['category_id'] = $cid;
+		$lists = $CategoryAttribute -> where($map) ->select();
+		
+		//显示页面
+        $builder = new AdminListBuilder();
+        $builder->title('[' . $category['name'] . "]属性列表")
+            ->buttonNew(U('edit'))
+			->setStatusUrl(U('setStatus'))
+            ->buttonDelete()
+            ->keyId()
+			->keyText('name', '属性名')
+			->keyText('value', '选择项数据')
+			->keyText('search', '是否作为商品的筛选项')
+			->keyDoActionEdit('edit?id=###')
+            ->data($lists)
+            ->pagination($totalCount, $r)
+            ->display();
+	}
+}

@@ -1,0 +1,101 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$meta_title}</h2>
+    </div>
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="tab-wrap">
+		<ul class="tab-nav nav">
+		<volist name="Think.config.GOODS_GROUP_LIST" id="group" key="k">
+
+			<li <eq name="k" value="1">class="current"</eq>><a href="{:U('?gkey='.$key)}">{$group}</a></li>
+
+		</volist>
+		</ul>
+    <div class="tab-content">
+    <form action="{$savePostUrl}" method="post" class="form-horizontal">
+    	<volist name="Think.config.GOODS_GROUP_LIST" id="group" key="k">
+    		<div class="group-content" <neq name="k" value="1">style="display:none;"</neq>>
+		        <volist name="keyList" id="field">
+		        	<in name="field['name']" value="$group_list[$k]">
+		            <include file="admin_form_lists"/>
+		            </in>
+		        </volist>
+	        </div>
+		</volist>
+        <br/>
+        <div class="form-item">
+            <volist name="buttonList" id="button">
+                <button {$button.attr}>{$button.title}</button>
+            </volist>
+        </div>
+    </form>
+    </div>
+    </div>
+</block>
+
+<block name="script">
+    <if condition="$importDatetimePicker">
+        <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+        <php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+        <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+        <script>
+            $('.time').datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                language:"zh-CN",
+                minView:2,
+                autoclose:true
+            });
+
+            $('.time').change(function(){
+                var fieldName = $(this).attr('data-field-name');
+                var dateString = $(this).val();
+                var date = new Date(dateString);
+                var timestamp = date.getTime();
+                $('[name='+fieldName+']').val(Math.floor(timestamp/1000));
+            });
+        </script>
+    </if>
+
+    <if condition="$importCheckBox">
+        <script>
+            $(function(){
+                function implode(x, list) {
+                    var result = "";
+                    for(var i=0;i<list.length;i++){
+                        if(result == "") {
+                            result += list[i];
+                        } else {
+                            result += ',' + list[i];
+                        }
+                    }
+                    return result;
+                }
+
+                $('.oneplus-checkbox').change(function(e){
+                    var fieldName = $(this).attr('data-field-name');
+                    var checked = $('.oneplus-checkbox[data-field-name='+fieldName+']:checked');
+                    var result = [];
+                    for(var i=0;i<checked.length;i++) {
+                        var checkbox = $(checked.get(i));
+                        result.push(checkbox.attr('value'));
+                    }
+                    result = implode(',', result);
+                    $('.oneplus-checkbox-hidden[data-field-name='+fieldName+']').val(result);
+                });
+            })
+        </script>
+    </if>
+
+    <script type="text/javascript">
+        Think.setValue("type", {$info.type|default=0});
+        Think.setValue("group", {$info.group|default=0});
+        //导航高亮
+        highlight_subnav('{:U('Config/index')}');
+    </script>
+
+</block>

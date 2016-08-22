@@ -1,0 +1,73 @@
+<?php
+
+namespace Weixin\Controller;
+use Com\Wechat;
+use Com\WechatAuth;
+/**
+ * 前台首页控制器
+ * 主要获取首页聚合数据
+ */
+class IndexController extends HomeController {
+	/**
+     * 首页
+     * 
+     * 
+     */
+    public function index(){
+    	//获取用户信息
+        $userinfo = D('WeixinMember')->get_weixin_openid('http://wudi.1bea.com/weixin/Index/index.html');
+	
+		$this->display();
+    }
+	
+	public function member(){
+		//获取用户信息
+		$userinfo = D('WeixinMember')->get_weixin_userinfo('http://wudi.1bea.com/weixin/Index/member.html');
+		$this->assign('userinfo',$userinfo);
+		$this->display();
+	}
+
+	public function views($id = 0){
+		//获取用户信息
+		$openid = D('WeixinMember')->get_weixin_openid(C('HOST') . U('Weixin/Index/views',array('id'=>$id)));
+		
+		$userInfo = D('WeixinMember')->where(array('openid'=>$openid))->field('id,openid,nickname,sex,language,city,province,country,headimgurl,privilege')->find();
+
+		if($userInfo != NULL){
+			//获取用户账户信息
+			$account = D('WeixinAccount')->where('wid = '.$userinfo['id'])->find();
+			$this->assign('account',$account);
+			$this->assign('is_user',1);
+		}else{
+			//用户未授权
+			cookie('auth_url',C('HOST') . U('Weixin/Index/views',array('id'=>$id)));
+			$this->assign('is_user',0);
+		}
+		
+		//获取商品信息
+		$goodsModel = D('Goods');
+		$info = $goodsModel->find($id);
+		$content = D('GoodsContent')->where('goods_id = '.$id)->find();
+					dump($openid);die;
+		$info['content'] = $content['content'];
+		$this->assign('info',$info);
+		
+		//获取拍卖信息
+		$auction = D('GoodsAuction')->where('goods_id = '.$id)->find();
+		$this->assign('auction',$auction);
+		
+		//获取图片集
+		$gallerys = D('GoodsGallery')->where(array('goods_id = ' .$id))->getField('img_url',true);
+
+		foreach($gallerys as &$val){
+			$val = '/Uploads/Goods/Gallery/'.$val;
+		}
+		unset($val);
+		$this->assign('gallerys',$gallerys);
+		$imgList = array('imgList'=>$gallerys,'valueId'=>'1');
+		$this->assign('propValueImgList',json_encode($imgList));
+		
+		$this->display();
+	}
+
+}

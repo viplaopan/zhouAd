@@ -1,0 +1,135 @@
+<extend name="Public/base" />
+<block name="style">
+	<link rel="stylesheet" type="text/css" href="__CSS__/weixin.css" media="all">
+</block>
+<block name="body">
+	<div class="main-title">
+		<h2>{$meta_title}</h2>
+	</div>
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<form action="{:U('WeixinMenu/editItem')}" method="post" class="form-horizontal">
+		<input type="hidden" name="pid" value="{$info['pid']}">
+		<input type="hidden" name="id" value="{$info['id']}" >
+		<label class="item-label">菜单名称 </label>
+		<div class="controls">
+			<eq name="parent['menu_type']" value='1'>
+					<input type="text" name="name" value="{$parent['name']}" readonly class="text input-large">
+			</eq>
+			<eq name="parent['menu_type']" value='2'>
+					<input type="text" name="name" value="{$info['name']}" class="text input-large">
+			</eq>	
+			
+		</div>
+		<label class="item-label">菜单的响应动作类型 </label>
+		<div class="controls">
+		<select name="type2">
+			<option value="click">点击事件</option>
+			<option value="view"> 链接</option>
+		</select>
+		</div>
+		<div class="groupType click">
+			<label class="item-label">菜单KEY值 <span class="check-tips">（click等点击类型必须）</span> </label>
+			<div class="controls">
+				<input type="text" name="key" value="{$info['key']}" class="text input-large">
+			</div>
+		</div>
+		<div class="groupType view">
+			<label class="item-label">网页链接 <span class="check-tips">（view类型必须）</span> </label>
+			<div class="controls">
+				<input type="text" name="url" value="{$info['url']}" class="text input-large">
+			</div>
+		</div>
+		<label class="item-label">状态 </label>
+		<div class="controls">
+	    <select name="status">
+	        <option value="-1">删除</option>
+	        <option value="0">禁用</option>
+	        <option value="1" selected="">启用</option>
+	        <option value="2">未审核</option>
+        </select>
+		</div>
+		<br>
+		<div class="form-item">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确定</button>
+			<button onClick="javascript:history.back(-1);return false;" class="btn btn-return">返回</button>
+		</div>
+	</form>
+</block>
+<block name="script">
+	<if condition="$importDatetimePicker">
+		<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+		<php>if(C('COLOR_STYLE')=='blue_color') echo '
+			<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css"> ';
+		</php>
+		<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+		<script>
+			$('.time').datetimepicker({
+				format: 'yyyy-mm-dd hh:ii',
+				language: "zh-CN",
+				minView: 2,
+				autoclose: true
+			});
+
+			$('.time').change(function() {
+				var fieldName = $(this).attr('data-field-name');
+				var dateString = $(this).val();
+				var date = new Date(dateString);
+				var timestamp = date.getTime();
+				$('[name=' + fieldName + ']').val(Math.floor(timestamp / 1000));
+			});
+		</script>
+	</if>
+	<if condition="$importCheckBox">
+		<script>
+			$(function() {
+				function implode(x, list) {
+					var result = "";
+					for (var i = 0; i < list.length; i++) {
+						if (result == "") {
+							result += list[i];
+						} else {
+							result += ',' + list[i];
+						}
+					}
+					return result;
+
+				}
+
+				$('.oneplus-checkbox').change(function(e) {
+					var fieldName = $(this).attr('data-field-name');
+					var checked = $('.oneplus-checkbox[data-field-name=' + fieldName + ']:checked');
+					var result = [];
+					for (var i = 0; i < checked.length; i++) {
+						var checkbox = $(checked.get(i));
+						result.push(checkbox.attr('value'));
+					}
+					result = implode(',', result);
+					$('.oneplus-checkbox-hidden[data-field-name=' + fieldName + ']').val(result);
+				});
+			})
+		</script>
+	</if>
+	<script type="text/javascript">
+		Think.setValue("type", {$info.type | default = 0 });
+		Think.setValue("group",{$info.group | default = 0 });
+		$("select[name='type2']").val('{$info.type2}');
+		$("select[name='status']").val('{$info.status}');
+		
+		//设置属性默认显示
+		$('.{$info.type2}').show();
+		
+		//判断选择属性
+		$("select[name='type2']").change(function(){
+			var self = $(this);
+			$('.groupType').hide();
+			$('.' + self.val()).show();
+		})
+		
+		
+		
+		//导航高亮
+		highlight_subnav('{:U('Config / index ')}');
+	</script>
+</block>

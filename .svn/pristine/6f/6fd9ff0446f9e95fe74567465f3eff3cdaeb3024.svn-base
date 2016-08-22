@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: caipeichao
+ * Date: 14-3-14
+ * Time: AM10:59
+ */
+
+namespace Admin\Controller;
+
+use Admin\Builder\AdminListBuilder;
+use Admin\Builder\AdminConfigBuilder;
+use Admin\Builder\AdminSortBuilder;
+use Com\Wechat;
+use Com\WechatAuth;
+
+class ShopController extends AdminController
+{
+	//菜单列表
+    public function index($page = 1, $r = 20)
+    {
+    	  //显示页面
+        $builder = new AdminListBuilder();
+        $builder->title('商品列表')
+            ->buttonNew(U('edit'))
+            ->buttonDelete()
+			->buttonNew(U('submitMenu'),'提交导航')
+            ->keyId()
+			->keyText('goods_name', '商品名称')
+            ->keyText('type', '商品类型')            
+			->keyCreateTime()
+            ->keyStatus()
+			->keyHtml('do', '操作', '320px')
+            ->data($lists)
+            ->pagination($totalCount, $r)
+            ->display();
+    }
+	
+}

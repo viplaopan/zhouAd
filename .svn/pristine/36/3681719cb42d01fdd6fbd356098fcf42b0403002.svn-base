@@ -1,0 +1,5 @@
+<?php 
+	$jssdk = new JSSDK("wx599baa1f584a46b1", "37bd56ee6466e53cf2ccdece4ba3a107");
+	$signPackage = $jssdk->getSignPackage();
+	dump($signPackage);
+?>
