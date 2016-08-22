@@ -60,21 +60,16 @@ class AdController extends AdminController
 		}else{
 			
 			if($isEdit){
-				$data = $goodsModel->where('id = '. $id)->find();				
-				$con = D('GoodsContent')->where('goods_id = '.$id)->find();
-				$data['content'] = $con['content'];
+				$data = $adModel->where('id = '. $id)->find();				
+
 			}else{
 				$data['status'] = 1;
 			}
 			
-			//商品分组
-			$this->assign('group_list',array(
-				1=>array('id','goods_name','shop_price','goods_type','cover','attr','images','status'),
-				2=>array('content')
-			));
+
 			//显示页面
 	        $builder = new AdminConfigBuilder();
-	        $builder->title($isEdit ? '编辑商品'. $data['goods_name'] : '添加商品')
+	        $builder->title($isEdit ? '编辑广告' : '添加广告')
 	            ->keyId()
 	            ->keyText('name', '广告名称')
 				->keyTextArea('noallow', '价格')
