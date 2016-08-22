@@ -19,7 +19,7 @@ class AdController extends AdminController
 	//菜单列表
     public function index($page = 1, $r = 20)
     {
-    	import('ORG.Net.IpLocation');// 导入IpLocation类
+
 $Ip = new IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
 $area = $Ip->getlocation('203.34.5.66'); // 获取某个IP地址所在的位置
     	$adModel = D('Ad');  
