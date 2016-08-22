@@ -13,6 +13,7 @@ use Admin\Builder\AdminConfigBuilder;
 use Admin\Builder\AdminSortBuilder;
 use Com\Wechat;
 use Com\WechatAuth;
+use Com\IpLocation;
 
 class AdController extends AdminController
 {
