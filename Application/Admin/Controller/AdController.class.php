@@ -20,7 +20,7 @@ class AdController extends AdminController
     public function index($page = 1, $r = 20)
     {
     	$ip = get_client_ip();
-    	echo $ip;
+    	echo taobaoIP($ip);
     	$adModel = D('Ad');  
 		$map['status'] = 1;
         $lists = $adModel->where($map)->page($page, $r)->order('id desc')->select();
