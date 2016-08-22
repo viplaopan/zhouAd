@@ -14,7 +14,7 @@
 return array(
     /* 模块相关配置 */
     'AUTOLOAD_NAMESPACE' => array('Addons' => ONETHINK_ADDON_PATH), //扩展模块列表
-    'DEFAULT_MODULE'     => 'Home',
+    'DEFAULT_MODULE'     => 'Admin',
     'MODULE_DENY_LIST'   => array('Common','User','Admin','Install'),
     //'MODULE_ALLOW_LIST'  => array('Home','Admin'),
 
@@ -24,7 +24,7 @@ return array(
     /* 微信设置  */
     'APP_ID' => 'wx599baa1f584a46b1', //应用ID
     'APP_SECRET' => '37bd56ee6466e53cf2ccdece4ba3a107', //应用密钥
-    'HOST'=>'http://wudi.1bea.com',
+    'HOST'=>'http://ad.1bea.com',
     /* 用户相关设置 */
     'USER_MAX_CACHE'     => 1000, //最大缓存用户数
     'USER_ADMINISTRATOR' => 1, //管理员用户ID
@@ -49,9 +49,4 @@ return array(
 
     /* 文档模型配置 (文档模型核心配置，请勿更改) */
     'DOCUMENT_MODEL_TYPE' => array(2 => '主题', 1 => '目录', 3 => '段落'),
-    
-	'DATA_CACHE_TYPE' => 'Memcache',//memcache缓存
-	'MEMCACHE_HOST' => '127.0.0.1',
-	'MEMCACHE_PORT' => '11211',	
-	'DATA_CACHE_TIME' => '3600',
 );
