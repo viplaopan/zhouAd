@@ -15,7 +15,16 @@ use User\Api\UserApi;
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
 class PublicController extends \Think\Controller {
-
+	public function getJs(){
+		// 新浪根据ip获取地址  
+	   	echo "var province = '' ;";  
+	    echo "var city = '' ;  ";
+	    echo 'jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){  ';
+	    echo 'province = remote_ip_info["province"];';
+	 	echo 'city = remote_ip_info["city"];'   
+		echo 'alert(city);'
+	    echo '}) ;';
+	}
     /**
      * 后台用户登录
      * @author 麦当苗儿 <zuojiazi@vip.qq.com>
