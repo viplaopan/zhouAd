@@ -35,7 +35,7 @@ class AdController extends AdminController
             ->keyText('noallow', '禁止城市')            
 			->keyCreateTime()
             ->keyStatus()
-			->keyHtml('do','操作')
+			->keyDoActionEdit('edit?id=###')
             ->data($lists)
             ->pagination($totalCount, $r)
             ->display();
@@ -53,7 +53,7 @@ class AdController extends AdminController
 				$id = $res;
 			}
 			if($res){
-				$this->success('操作成功');
+				$this->success('操作成功',U('index'));
 			}else{
 				$this->error('遇到错误');
 			}
@@ -75,7 +75,6 @@ class AdController extends AdminController
 				->keyTextArea('noallow', '价格')
 				->keyText('url', '广告链接')
 				->keyImage('cover', '广告图片')
-
 	            ->keyStatus()
 	            ->data($data)
 	            ->buttonSubmit(U('edit'))->buttonBack()
