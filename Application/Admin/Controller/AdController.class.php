@@ -73,7 +73,7 @@ class AdController extends AdminController
 	        $builder->title($isEdit ? '编辑广告' : '添加广告')
 	            ->keyId()
 	            ->keyText('name', '广告名称')
-				->keyTextArea('noallow', '静止城市','逗号隔开')
+				->keyTextArea('noallow', '禁止城市','逗号隔开')
 				->keyText('url', '广告链接')
 				->keyImage('image', '广告图片')
 	            ->keyStatus()
