@@ -25,6 +25,7 @@ class PublicController extends \Think\Controller {
 		}
 		$jsstr .="city !=''";
 		echo 'document.writeln("<div class=\'\'><img src=\'http://ad.1bea.com/Uploads/Ad/' . $info['image'] . '\'></div>")';
+		exit;
 		// 新浪根据ip获取地址  
 	   	echo "var province = '' ;";  
 	    echo "var city = '' ;  ";
