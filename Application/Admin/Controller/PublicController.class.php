@@ -20,7 +20,7 @@ class PublicController extends \Think\Controller {
 		$address = taobaoIP($ip);
 		// 新浪根据ip获取地址  
 		if($address != NULL){
-			$info = D('Ad')->find($id)
+			$info = D('Ad')->find($id);
 			$cityLists = explode(',', $info['noallow']);
 			echo 'alert("' .$ip. '");';
 		}
