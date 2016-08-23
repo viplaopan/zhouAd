@@ -428,7 +428,7 @@ function get_action_type($type, $all = false){
     }
     return $list[$type];
 }
-function taobaoIP($clientIP){
+function taobaoIP($clientIP){  
     $taobaoIP = 'http://ip.taobao.com/service/getIpInfo.php?ip='.$clientIP;
     $IPinfo = json_decode(file_get_contents($taobaoIP));
     $province = $IPinfo->data->region;

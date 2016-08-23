@@ -23,7 +23,7 @@ class AdController extends AdminController
     	$adModel = D('Ad');  
 		$map['status'] = 1;
         $lists = $adModel->where($map)->page($page, $r)->order('id desc')->select();
-
+ 
 
     	//显示页面
         $builder = new AdminListBuilder();
@@ -34,7 +34,7 @@ class AdController extends AdminController
             ->keyId()
 			->keyText('name', '广告名称')
             ->keyText('noallow', '禁止城市')            
-			->keyCreateTime()
+	
             ->keyStatus()
 			->keyDoActionEdit('edit?id=###')
             ->data($lists)
