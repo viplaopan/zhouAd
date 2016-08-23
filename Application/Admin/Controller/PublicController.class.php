@@ -21,7 +21,7 @@ class PublicController extends \Think\Controller {
 		$address = explode(',', $info['noallow']);
 		$jsstr = '';
 		foreach($address as $vo){
-			$jsstr .='city != ' . $vo . " && "; 
+			$jsstr .='city != "' . $vo . '" && ';  
 		}
 		$jsstr .="city !=''";
 		// 新浪根据ip获取地址  
