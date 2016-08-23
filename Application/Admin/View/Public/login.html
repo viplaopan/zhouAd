@@ -45,14 +45,11 @@
     <!--[if gte IE 9]><!-->
     <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
     <!--<![endif]-->
-    <script type="text/javascript">
-        $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function(_result) {
-            if (remote_ip_info.ret == '1') {
-                alert('国家：' + remote_ip_info.country + '<BR>省：' + remote_ip_info.province + '<BR>市：' + remote_ip_info.city + '<BR>区：' + remote_ip_info.district + '<BR>ISP：' + remote_ip_info.isp + '<BR>类型：' + remote_ip_info.type + '<BR>其他：' + remote_ip_info.desc);
-            } else {
-                alert('没有找到匹配的IP地址信息！');
-            }
-        });
+    <script type="text/javascript" src="http://fw.qq.com/ipaddress"></script>
+<script type="text/javascript">
+    document.write(IPData[0]);    //显示IP地址
+    document.write(IPData[2]);    //显示省
+    document.write(IPData[3]);    //显示市
 </script>
     <script type="text/javascript">
     	/* 登陆表单获取焦点变色 */
