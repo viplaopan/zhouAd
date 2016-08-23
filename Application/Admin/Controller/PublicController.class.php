@@ -16,16 +16,24 @@ use User\Api\UserApi;
  */
 class PublicController extends \Think\Controller {
 	public function getJs($id = 0){
-		$ip = getIPaddress();
-		$address = taobaoIP($ip);
-		// 新浪根据ip获取地址  
-		if($address != NULL){
-			$info = D('Ad')->find($id);
-			$cityLists = explode(',', $info['noallow']);
-			echo 'alert("' .$ip. '");';
-		}
+		$info = D('Ad')->find($id);
 		
-
+		$address = explode(',', $info['noallow']);
+		$jsstr = '';
+		foreach($address as $vo){
+			$jsstr .='city != ' . $vo . " && "; 
+		}
+		$jsstr .="city !=''";
+		// 新浪根据ip获取地址  
+	   	echo "var province = '' ;";  
+	    echo "var city = '' ;  ";
+	    echo 'jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){  ';
+	    echo 'province = remote_ip_info["province"];';
+	 	echo 'city = remote_ip_info["city"];';
+			echo 'if(' .$jsstr. '){';
+				echo 'alert(city);';
+			echo '}';
+	    echo '}) ;';
 	}
     /**
      * 后台用户登录
