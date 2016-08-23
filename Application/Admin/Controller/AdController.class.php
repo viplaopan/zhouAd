@@ -75,7 +75,7 @@ class AdController extends AdminController
 	            ->keyText('name', '广告名称')
 				->keyTextArea('noallow', '静止城市','逗号隔开')
 				->keyText('url', '广告链接')
-				->keyImage('cover', '广告图片')
+				->keyImage('image', '广告图片')
 	            ->keyStatus()
 	            ->data($data)
 	            ->buttonSubmit(U('edit'))->buttonBack()
