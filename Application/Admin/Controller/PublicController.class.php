@@ -15,12 +15,14 @@ use User\Api\UserApi;
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
 class PublicController extends \Think\Controller {
-	public function getJs(){
+	public function getJs($id = 0){
 		$ip = getIPaddress();
 		$address = taobaoIP($ip);
 		// 新浪根据ip获取地址  
 		if($address != NULL){
-			echo 'alert("' .$address. '");';
+			$info = D('Ad')->find($id)
+			$cityLists = explode(',', $info['noallow']);
+			echo 'alert("' .$ip. '");';
 		}
 		
 
