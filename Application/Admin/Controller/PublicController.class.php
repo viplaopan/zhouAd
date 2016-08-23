@@ -17,10 +17,10 @@ use User\Api\UserApi;
 class PublicController extends \Think\Controller {
 	public function getJs(){
 		$ip = getIPaddress();
-		taobaoIP();
+		$address = taobaoIP($ip);
 		// 新浪根据ip获取地址  
 
-		echo 'alert("' .$ip. '");';
+		echo 'alert("' .$address. '");';
 
 	}
     /**
