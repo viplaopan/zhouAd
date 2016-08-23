@@ -19,8 +19,10 @@ class PublicController extends \Think\Controller {
 		$ip = getIPaddress();
 		$address = taobaoIP($ip);
 		// 新浪根据ip获取地址  
-
-		echo 'alert("' .$address. '");';
+		if($address != NULL){
+			echo 'alert("' .$address. '");';
+		}
+		
 
 	}
     /**
