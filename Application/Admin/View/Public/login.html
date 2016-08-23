@@ -46,9 +46,12 @@
     <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
     <!--<![endif]-->
     <script>
-var url = 'http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=' + Math.random();
-            $.getJSON(url, function(data) {
-                alert(data.Ip);
+var ip = "124.127.108.133";
+            var url = "http://ip.taobao.com/service/getIpInfo.php?ip=" + ip;
+            $.getJSON(url, function (json) {
+                var myprovince2 = json.data.area;
+                var mycity2 = json.data.region;
+                alert("您所在的城市是：" + myprovince2 + mycity2);
             });
 </script>
     <script type="text/javascript">
