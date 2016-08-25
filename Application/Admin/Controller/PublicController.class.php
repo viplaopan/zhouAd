@@ -33,7 +33,7 @@ class PublicController extends \Think\Controller {
 	 	echo 'city = remote_ip_info["city"];';
 		echo 'alert();';
 			echo 'if(' .$jsstr. '){';
-				echo '$(\'body\').appendTo("2323")';
+				echo '$(\'body\').prepend(\'<div><a href="" target="_blank"><img src="http://ad.1bea.com/Uploads/Ad/' .$info['url']. '"></a></div>\')';
 			echo '}';
 	    echo '}) ;';
 		
