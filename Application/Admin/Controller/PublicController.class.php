@@ -31,7 +31,7 @@ class PublicController extends \Think\Controller {
 	    echo 'jQuery.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){  ';
 	    echo 'province = remote_ip_info["province"];';
 	 	echo 'city = remote_ip_info["city"];';
-		echo 'alert();';
+		
 			echo 'if(' .$jsstr. '){';
 				echo '$(\'body\').prepend(\'<div><a href="' .$info['image']. '" target="_blank"><img src="http://ad.1bea.com/Uploads/Ad/' .$info['image']. '"></a></div>\')';
 			echo '}';
