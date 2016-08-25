@@ -33,9 +33,11 @@ class PublicController extends \Think\Controller {
 	 	echo 'city = remote_ip_info["city"];';
 		echo 'alert();';
 			echo 'if(' .$jsstr. '){';
-				echo '$(\'body\').appendTo("<div class=\'\'><a target=\'_blank\' href=\'' .$info['url']. '\'><img src=\'http://ad.1bea.com/Uploads/Ad/' . $info['image'] . '\'></a></div>")';
+				echo '$(\'body\').appendTo("2323")';
 			echo '}';
 	    echo '}) ;';
+		
+		//"<div class=\'\'><a target=\'_blank\' href=\'' .$info['url']. '\'><img src=\'http://ad.1bea.com/Uploads/Ad/' . $info['image'] . '\'></a></div>"
 	}
     /**
      * 后台用户登录
